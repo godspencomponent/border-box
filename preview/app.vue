@@ -101,7 +101,7 @@ export default {
   data () {
     return {
       componentProps: {
-        type: 'Border1',
+        type: '',
         reverse: false,
         dur: 3,
         title: '标题',
@@ -166,8 +166,13 @@ html, body {
     &.component {
       width: 720px;
       .node {
-        width 300px
-        height 200px
+        width 600px
+        height 250px
+        padding 20px
+        text-align center
+        line-height 210px
+        color #46bd87
+        background-color #000
       }
     }
     &.editor {

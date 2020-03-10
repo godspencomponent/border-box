@@ -1,31 +1,17 @@
 <template>
   <div class="component">
-    <component v-if="type" :comStyle='comStyle' :reverse="reverse" :dur="dur" :title="title" :titleWidth="titleWidth" :is="type"></component>
+    <component v-if="type" :color="[color1, color2]" :reverse="reverse" :dur="dur" :title="title" :titleWidth="titleWidth" :is="type">{{type}}</component>
   </div>
 </template>
 
 <script>
-  import {VueExtend} from 'godspen-lib'
-  import Border1 from './border1'
-  import Border2 from './border2'
-  import Border3 from './border3'
-  import Border4 from './border4'
-  import Border5 from './border5'
-  import Border6 from './border6'
-  import Border7 from './border7'
-  import Border8 from './border8'
-  import Border9 from './border9'
-  import Border10 from './border10'
-  import Border11 from './border11'
-  import Border12 from './border12'
-  import Border13 from './border13'
+  import {VueExtend, Util} from 'godspen-lib'
 
   export default {
     mixins: [VueExtend.mixin],
     name: 'border-box',
     label: process.env.LABEL,
     style: process.env.STYLE,
-    components: { Border1, Border2, Border3, Border4, Border5, Border6, Border7, Border8, Border9, Border10, Border11, Border12, Border13 },
     props: {
       type: {
         type: [ String ],
@@ -77,9 +63,37 @@
     },
     data () {
       return {
+        colors: {
+          DvBorderBox1: ['rgb(35, 95, 167)', 'rgb(79, 210, 221)'],
+          DvBorderBox2: ['#fff', '#fff'],
+          DvBorderBox3: ['rgb(40, 98, 183)', 'rgb(40, 98, 183)'],
+          DvBorderBox4: ['red', 'rgba(0, 0, 255, 0.8)'],
+          DvBorderBox5: ['rgba(255, 255, 255, 0.2)', 'rgba(255, 255, 255, 0.2)'],
+          DvBorderBox6: ['rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.4)'],
+          DvBorderBox7: ['rgba(255, 255, 255, 0.2)', 'rgba(255, 255, 255, 0.2)'],
+          DvBorderBox8: ['rgb(35, 95, 167)', '#53cbd9'],
+          DvBorderBox9: ['rgb(0, 120, 210)', 'rgb(0, 120, 210)'],
+          DvBorderBox10: ['rgb(29, 72, 196)', 'rgb(211, 225, 248)'],
+          DvBorderBox11: ['#8cacf9', '#24316b'],
+          DvBorderBox12: ['rgb(46, 96, 153)', 'rgb(124, 231, 253)'],
+          DvBorderBox13: ['rgb(46, 96, 153)', 'rgb(124, 231, 253)']
+        }
       }
     },
     computed: {
+      color1 () {
+        return this.comStyle.color1 || this.colors[this.type][0]
+      },
+      color2 () {
+        return this.comStyle.color1 || this.colors[this.type][1]
+      }
+    },
+    async mounted () {
+      // 纯属演示异步加载js资源，与本组件无关； loadJs返回一个promise实例 可以用async 或者 then 来处理回调
+      await Util.loadJs('https://unpkg.com/@jiaminghi/data-view@2.7.3/dist/datav.min.vue.js')
+      setTimeout((e) => {
+        this.componentName = 'DvBorderBox1'
+      }, 100)
     },
     editorMethods: {
     },
