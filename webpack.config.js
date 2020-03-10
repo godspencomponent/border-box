@@ -4,12 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
 let pkg = require('./package.json')
 
-function getIPAdress () {
+function getIPAdress() {
   var interfaces = require('os').networkInterfaces()
   for (var devName in interfaces) {
-    var iface = interfaces[ devName ]
+    var iface = interfaces[devName]
     for (var i = 0; i < iface.length; i++) {
-      var alias = iface[ i ]
+      var alias = iface[i]
       if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
         return alias.address
       }
@@ -17,16 +17,15 @@ function getIPAdress () {
   }
 }
 
-function normalizeName (name) {
+function normalizeName(name) {
   return name.replace(/[-_]+(\w)/g, (m, p) => p.toUpperCase())
 }
 
-const COMPONENT_PATH = `__NAMESPACE__/${normalizeName(pkg.name)}@${pkg.version}`
+const COMPONENT_PATH = '__NAMESPACE__/__NAME__@__VERSION__'
 
 let config = {
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
@@ -72,14 +71,18 @@ let config = {
             img: 'src',
             image: 'xlink:href'
           },
-          loaders: {
-          }
+          loaders: {}
         }
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        options: {
+          presets: ['es2015']
+        },
+        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, './preview'), path.resolve(__dirname, 'node_modules/@jiaminghi/data-view/lib')],
+        // exclude: /node_modules/
+        // exclude: /node_modules/
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -111,7 +114,7 @@ let config = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   externals: {
-    'godspen-lib': "$GP"
+    'godspen-lib': '$GP'
   },
   performance: {
     hints: false
@@ -168,9 +171,7 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = merge(config, {
     entry: {
       index: './src/index.vue',
-      
       editor: './editor/index.vue'
-      
     },
     output: {
       path: path.resolve(__dirname, './dist'),

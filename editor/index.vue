@@ -3,35 +3,47 @@
     <el-collapse accordion value="1">
       <el-collapse-item title="设置" name="1">
         <div class="list-box">
-          <ul>
-            <li v-for="item in defaultType" :key="item.value">
-              <img :src="item.src" @click="componentInfo.type = item.value">
-            </li>
-          </ul>
+          <div
+            :class="[componentInfo.type == item.value?'active':'']"
+            class="item"
+            v-for="item in defaultType"
+            :key="item.value"
+          >
+            <img :src="item.src" @click="componentInfo.type = item.value" />
+          </div>
         </div>
         <el-form size="mini">
-          <el-form-item label="是否翻转" v-if="componentInfo.type == 'DvBorderBox4' || componentInfo.type == 'DvBorderBox5'">
+          <el-form-item
+            label="是否翻转"
+            v-if="componentInfo.type == 'DvBorderBox4' || componentInfo.type == 'DvBorderBox5'"
+          >
             <el-select v-model="componentInfo.reverse" placeholder="请选择">
-              <el-option label="否" :value="false">
-              </el-option>
-              <el-option label="是" :value="true">
-              </el-option>
+              <el-option label="否" :value="false"></el-option>
+              <el-option label="是" :value="true"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label='单次动画时长(秒)' v-if="componentInfo.type=='DvBorderBox8'">
-            <el-input type='number' v-model.number="componentInfo.dur" placeholder="请输入单次动画时长"></el-input>
+          <el-form-item label="单次动画时长(秒)" v-if="componentInfo.type=='DvBorderBox8'">
+            <el-input type="number" v-model.number="componentInfo.dur" placeholder="请输入单次动画时长"></el-input>
           </el-form-item>
           <el-form-item label="标题" v-if="componentInfo.type=='DvBorderBox11'">
             <el-input type="input" v-model="componentInfo.title" placeholder="请输入标题"></el-input>
           </el-form-item>
-          <el-form-item label='标题宽度' v-if="componentInfo.type=='Border11'">
-            <el-input type='number' v-model.number="componentInfo.titleWidth" placeholder="请输入标题宽度"></el-input>
+          <el-form-item label="标题宽度" v-if="componentInfo.type=='Border11'">
+            <el-input type="number" v-model.number="componentInfo.titleWidth" placeholder="请输入标题宽度"></el-input>
           </el-form-item>
           <el-form-item label="边框颜色--主颜色">
-            <el-color-picker @active-change="changeC1" v-model="componentInfo.comStyle.color1" show-alpha></el-color-picker>
+            <el-color-picker
+              @active-change="changeC1"
+              v-model="componentInfo.comStyle.color1"
+              show-alpha
+            ></el-color-picker>
           </el-form-item>
           <el-form-item label="边框颜色--副颜色">
-            <el-color-picker @active-change="changeC2" v-model="componentInfo.comStyle.color2" show-alpha></el-color-picker>
+            <el-color-picker
+              @active-change="changeC2"
+              v-model="componentInfo.comStyle.color2"
+              show-alpha
+            ></el-color-picker>
           </el-form-item>
         </el-form>
       </el-collapse-item>
@@ -50,7 +62,7 @@
         default: {
           comStyle: {
             color1: 'rgb(35, 95, 167)',
-              color2: 'rgb(79, 210, 221)'
+            color2: 'rgb(79, 210, 221)'
           }
         }
       }
@@ -124,22 +136,26 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
   .component-editor {
     .list-box {
-      width 100%
-      height 300px
-      margin-bottom 10px
-      overflow-y scroll
-      ul {
-        list-style none
-        margin 0
-        padding-left 0
-        li {
-          width 100%
-          margin-bottom 10px
-          cursor pointer
-          img {
-            width 100%
-            height 100%
-          }
+      width: 100%;
+      height: 500px;
+      margin-bottom: 10px;
+      overflow-y: scroll;
+
+      .item {
+        width: 50%;
+        margin-bottom: 10px;
+        cursor: pointer;
+        display: inline-block;
+        padding: 11px;
+
+        &.active {
+          border: 1px solid red;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
         }
       }
     }

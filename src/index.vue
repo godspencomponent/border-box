@@ -1,11 +1,35 @@
 <template>
   <div class="component">
-    <component v-if="type" :color="[color1, color2]" :reverse="reverse" :dur="dur" :title="title" :titleWidth="titleWidth" :is="type">{{type}}</component>
+    <component
+      class="borderWrap"
+      v-if="scriptLoadSuccess&&type"
+      :color="[color1, color2]"
+      :reverse="reverse"
+      :dur="dur"
+      :title="title"
+      :titleWidth="titleWidth"
+      :is="type"
+    ></component>
   </div>
 </template>
 
 <script>
-  import {VueExtend, Util} from 'godspen-lib'
+  import {VueExtend} from 'godspen-lib'
+  import {
+    borderBox1,
+    borderBox2,
+    borderBox3,
+    borderBox4,
+    borderBox5,
+    borderBox6,
+    borderBox7,
+    borderBox8,
+    borderBox9,
+    borderBox10,
+    borderBox11,
+    borderBox12,
+    borderBox13
+  } from '@jiaminghi/data-view'
 
   export default {
     mixins: [VueExtend.mixin],
@@ -14,8 +38,8 @@
     style: process.env.STYLE,
     props: {
       type: {
-        type: [ String ],
-        default: '选择border类型',
+        type: [String],
+        default: 'DvBorderBox1',
         editer: {
           ignore: true // 忽略，码良基础在编辑器中不显示
         }
@@ -63,6 +87,7 @@
     },
     data () {
       return {
+        scriptLoadSuccess: false,
         colors: {
           DvBorderBox1: ['rgb(35, 95, 167)', 'rgb(79, 210, 221)'],
           DvBorderBox2: ['#fff', '#fff'],
@@ -90,10 +115,21 @@
     },
     async mounted () {
       // 纯属演示异步加载js资源，与本组件无关； loadJs返回一个promise实例 可以用async 或者 then 来处理回调
-      await Util.loadJs('https://unpkg.com/@jiaminghi/data-view@2.7.3/dist/datav.min.vue.js')
-      setTimeout((e) => {
-        this.componentName = 'DvBorderBox1'
-      }, 100)
+      window.Vue.use(borderBox1)
+      window.Vue.use(borderBox2)
+      window.Vue.use(borderBox3)
+      window.Vue.use(borderBox4)
+      window.Vue.use(borderBox5)
+      window.Vue.use(borderBox6)
+      window.Vue.use(borderBox7)
+      window.Vue.use(borderBox8)
+      window.Vue.use(borderBox9)
+      window.Vue.use(borderBox10)
+      window.Vue.use(borderBox11)
+      window.Vue.use(borderBox12)
+      window.Vue.use(borderBox13)
+
+      this.scriptLoadSuccess = true
     },
     editorMethods: {
     },
@@ -104,7 +140,12 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
   .component {
-    width : 100%;
-    height : 100%;
+    width: 100%;
+    height: 100%;
+
+    .borderWrap {
+      width: 100%;
+      height: 100%;
+    }
   }
 </style>
