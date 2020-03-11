@@ -5,7 +5,7 @@
     <div class="block component">
       <div class="title">组件</div>
       <div class="app">
-        <div class="node">
+        <div class="node" ref="node">
           <com v-bind="componentProps"></com>
         </div>
       </div>
@@ -31,6 +31,7 @@
   import Toast from './components/Toast'
   import MessageBox from 'mint-ui/message-box/'
   import 'mint-ui/message-box/style.css'
+  import { bind } from 'size-sensor'
 
   export default {
     components: {Toast, Loading, ImgViewer, example, com, Editor},
@@ -106,6 +107,8 @@
           dur: 3,
           title: '标题',
           titleWidth: 250,
+          nodeWidth: 400,
+          nodeHeight: 400,
           comStyle: {
             type: Object,
             default: function () {
@@ -119,6 +122,17 @@
             },
           },
         },
+      }
+    },
+    mounted () {
+      bind(this.$refs.node, e => {
+        this.componentProps.nodeWidth = e.clientWidth
+        this.componentProps.nodeHeight = e.clientHeight
+      })
+    },
+    computed: {
+      'nodeWidth' () {
+        return this.$refs.node.clientWidth
       }
     },
     methods: {
@@ -168,8 +182,8 @@
         width: 450px;
 
         .node {
-          width: 400px;
-          height: 400px;
+          width 400px
+          height 400px
           text-align: center;
           line-height: 210px;
           color: #46bd87;

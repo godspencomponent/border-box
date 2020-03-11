@@ -22,6 +22,7 @@
   "dependencies": {
     "@jiaminghi/data-view": "^2.7.3",
     "element-ui": "2.4.6",
+    "size-sensor": "^0.2.6",
     "vue": "^2.5.9"
   },
   "devDependencies": {

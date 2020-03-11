@@ -37,6 +37,20 @@
     label: process.env.LABEL,
     style: process.env.STYLE,
     props: {
+      nodeWidth: {
+        type: Number,
+        default: 400,
+        editer: {
+          ignore: true // 忽略，码良基础在编辑器中不显示
+        }
+      },
+      nodeHeight: {
+        type: Number,
+        default: 400,
+        editer: {
+          ignore: true // 忽略，码良基础在编辑器中不显示
+        }
+      },
       type: {
         type: [String],
         default: 'DvBorderBox1',
@@ -105,12 +119,20 @@
         }
       }
     },
+    watch: {
+      nodeWidth () {
+        if (this.$children[0].initWH) this.$children[0].initWH()
+      },
+      nodeHeight () {
+        if (this.$children[0].initWH) this.$children[0].initWH()
+      }
+    },
     computed: {
       color1 () {
         return this.comStyle.color1 || this.colors[this.type][0]
       },
       color2 () {
-        return this.comStyle.color1 || this.colors[this.type][1]
+        return this.comStyle.color2 || this.colors[this.type][1]
       }
     },
     async mounted () {
